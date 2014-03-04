@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title %></title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="container">
+	<div id="header">
+		<h1>
+			<%= page_title %>
+		</h1>
+	</div>
+	<div id="navigation">
+		<%= render "shared/navigation" %>
+	</div>
+	<div id="content-container">
+		<div id="content">
+
+			<h2>
+				<%= yield :title %>
+			</h2>
+
+			<p id="notice"><%= notice %></p>
+
+			<%= yield :layout %>
+			
+		</div>
+		<div id="sidebar">
+			<% if content_for?(:sidebar) %>
+				<%= yield :sidebar %>
+			<% end %>
+		</div>
+		<div id="footer">
+			<%= footer %>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
