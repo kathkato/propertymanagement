@@ -63,10 +63,10 @@
   <div class="field">
     <%= f.label :responder_id %><br>
     <% if current_user && (current_user.has_role? :manager) %>
-    <%= f.collection_select :responder_id, User.all.collect, :id, :username %>
+    <%= f.collection_select :responder_id, User.all.collect, :id, :username, {:include_blank => "Please Select"} %>
     <% else %>
     <% current_user && (current_user.has_role? :renter) %>
-    <%= f.collection_select :responder_id, User.all.collect, :id, :username %>
+    <%= f.collection_select :responder_id, User.all.collect, :id, :username, {:include_blank => "Please Select"} %>
     <% end %>
 
   </div>

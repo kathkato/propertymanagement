@@ -27,10 +27,21 @@ All Repair Requests
 
         <% if current_user && (current_user.has_role? :manager) %>
         <td><%= repair_request.submitter.username %></td>
+
+        <% if repair_request.responder_id.nil? %>
+        <%= repair_request.responder %>
+        <% else %>
         <td><%= repair_request.responder.username %></td>
+        <% end %>
+
         <% else (current_user.has_role? :renter) %>
         <td><%= current_user.username %></td>
+
+        <% if repair_request.responder_id.nil? %>
+        <%= repair_request.responder %>
+        <% else %>
         <td><%= repair_request.responder.username %></td>
+        <% end %>
         <% end %>
 
         <% if can? :read, repair_request %>

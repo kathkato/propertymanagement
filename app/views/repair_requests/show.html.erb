@@ -26,7 +26,11 @@
 
 <p>
   <strong>Responder:</strong>
+  <% if @repair_request.responder_id.nil? %>
+  <%= @repair_request.responder %>
+  <% else %>
   <%= @repair_request.responder.username %>
+  <% end %>
 </p>
 
 <% else current_user && (current_user.has_role? :renter) %>
@@ -37,7 +41,11 @@
 
 <p>
   <strong>Responder:</strong>
+  <% if @repair_request.responder_id.nil? %>
+  <%= @repair_request.responder %>
+  <% else %>
   <%= @repair_request.responder.username %>
+  <% end %>
 </p>
 <% end %>
 

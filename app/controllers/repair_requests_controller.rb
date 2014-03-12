@@ -17,6 +17,7 @@ class RepairRequestsController < ApplicationController
   # GET /repair_requests/1
   # GET /repair_requests/1.json
   def show
+    @repair_request = RepairRequest.find(params[:id])
   end
 
   # GET /repair_requests/new
@@ -26,12 +27,14 @@ class RepairRequestsController < ApplicationController
 
   # GET /repair_requests/1/edit
   def edit
+    @repair_request = RepairRequest.find(params[:id])
   end
 
   # POST /repair_requests
   # POST /repair_requests.json
   def create
     @repair_request = RepairRequest.new(repair_request_params)
+    @repair_request.submitter = current_user
 
     respond_to do |format|
       if @repair_request.save
@@ -48,6 +51,10 @@ class RepairRequestsController < ApplicationController
   # PATCH/PUT /repair_requests/1.json
   def update
     @repair_request = RepairRequest.find(params[:id])
+
+    if @repair_request.submitter != current_user
+      @repair_request.responder = current_user
+    end
 
     respond_to do |format|
       if @repair_request.update(repair_request_params)
