@@ -84,3 +84,14 @@
 	padding: 20px;
 	height: 1%;
 }
+
+#notice
+{
+	color: green;
+}
+
+#error
+{
+	color: red;
+	font-size: 18px;
+}

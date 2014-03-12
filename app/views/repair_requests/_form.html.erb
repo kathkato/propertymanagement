@@ -11,29 +11,64 @@
     </div>
   <% end %>
 
+  <% if current_user && (current_user.has_role? :manager) %>
+  <div class="field">
+    <%= f.label :open_date %><br>
+    <%= f.date_select :open_date, :disabled => true %>
+  </div>
+  <% elsif current_user.has_role? :renter %>
   <div class="field">
     <%= f.label :open_date %><br>
     <%= f.date_select :open_date %>
   </div>
   <div class="field">
     <%= f.label :close_date %><br>
+    <%= f.date_select :close_date, :disabled => true %>
+  </div>
+  <% end %>
+
+  <% if current_user && (current_user.has_role? :manager) %>
+  <div class="field">
+    <%= f.label :close_date %><br>
     <%= f.date_select :close_date %>
   </div>
+
+  <div class="field">
+    <%= f.label :request_details %><br>
+    <%= f.text_area :request_details, :disabled => true %>
+  </div>
+  <% elsif current_user.has_role? :renter %>
   <div class="field">
     <%= f.label :request_details %><br>
     <%= f.text_area :request_details %>
   </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :request_response %><br>
+
+    <% if current_user && (current_user.has_role? :manager) %>
     <%= f.text_area :request_response %>
+    <% elsif current_user.has_role? :renter %>
+    <%= f.text_field :request_response, :disabled => true %>
+    <% end %>
+
   </div>
   <div class="field">
-    <%= f.label :submitter_id %><br>
-    <%= f.number_field :submitter_id %>
+    <% if current_user && (current_user.has_role? :renter) %>
+    <%= f.collection_select :submitter_id, User.all.collect, :id, :username, {:selected => current_user.id }, :hidden => true %>
+    <% end %>
+
   </div>
   <div class="field">
     <%= f.label :responder_id %><br>
-    <%= f.number_field :responder_id %>
+    <% if current_user && (current_user.has_role? :manager) %>
+    <%= f.collection_select :responder_id, User.all.collect, :id, :username %>
+    <% else %>
+    <% current_user && (current_user.has_role? :renter) %>
+    <%= f.collection_select :responder_id, User.all.collect, :id, :username %>
+    <% end %>
+
   </div>
   <div class="actions">
     <%= f.submit %>

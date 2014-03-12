@@ -18,15 +18,28 @@
   <%= @repair_request.request_response %>
 </p>
 
+<% if current_user && (current_user.has_role? :manager) %>
 <p>
   <strong>Submitter:</strong>
-  <%= @repair_request.submitter_id %>
+  <%= @repair_request.submitter.username %>
 </p>
 
 <p>
   <strong>Responder:</strong>
-  <%= @repair_request.responder_id %>
+  <%= @repair_request.responder.username %>
 </p>
+
+<% else current_user && (current_user.has_role? :renter) %>
+<p>
+  <strong>Submitter:</strong>
+  <%= @repair_request.submitter.username %>
+</p>
+
+<p>
+  <strong>Responder:</strong>
+  <%= @repair_request.responder.username %>
+</p>
+<% end %>
 
 <%= link_to 'Edit', edit_repair_request_path(@repair_request) %> |
 <%= link_to 'Back', repair_requests_path %>

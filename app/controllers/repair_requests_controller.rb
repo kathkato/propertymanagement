@@ -1,10 +1,17 @@
 class RepairRequestsController < ApplicationController
   before_action :set_repair_request, only: [:show, :edit, :update, :destroy]
 
+  load_and_authorize_resource #convenience method from cancan
+
   # GET /repair_requests
   # GET /repair_requests.json
   def index
-    @repair_requests = RepairRequest.all
+    if current_user.has_role? :manager
+      @repair_requests = RepairRequest.all
+    else
+      @repair_requests = RepairRequest.where(:submitter_id => current_user)
+    end
+
   end
 
   # GET /repair_requests/1
@@ -40,6 +47,8 @@ class RepairRequestsController < ApplicationController
   # PATCH/PUT /repair_requests/1
   # PATCH/PUT /repair_requests/1.json
   def update
+    @repair_request = RepairRequest.find(params[:id])
+
     respond_to do |format|
       if @repair_request.update(repair_request_params)
         format.html { redirect_to @repair_request, notice: 'Repair request was successfully updated.' }

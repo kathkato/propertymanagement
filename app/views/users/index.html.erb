@@ -7,7 +7,6 @@ All Registered Users
     <tr>
       <th>Username</th>
       <th>Email</th>
-      <th>Password</th>
       <th></th>
       <th></th>
       <th></th>
@@ -19,10 +18,16 @@ All Registered Users
       <tr>
         <td><%= user.username %></td>
         <td><%= user.email %></td>
-        <td><%= user.password %></td>
+
+        <% if can? :read, user %>
         <td><%= link_to 'Show', user %></td>
+        <% end %>
+
+        <% if can? :manage, user %>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        
       </tr>
     <% end %>
   </tbody>

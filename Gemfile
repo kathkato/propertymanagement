@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'cancan'
+
 gem 'authlogic'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

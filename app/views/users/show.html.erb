@@ -13,8 +13,12 @@ Your Profile
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @user.password %>
+  <strong>User is in Roles:</strong>
+  <ul>
+  	<% @user.roles.each do |r| %>
+  	<li><%= r.name %></li>
+  	<% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
