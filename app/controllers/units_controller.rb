@@ -1,6 +1,8 @@
 class UnitsController < ApplicationController
   before_action :set_unit, only: [:show, :edit, :update, :destroy]
 
+  load_and_authorize_resource
+
   # GET /units
   # GET /units.json
   def index
@@ -69,6 +71,6 @@ class UnitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_params
-      params.require(:unit).permit(:name, :square_feet)
+      params.require(:unit).permit(:name, :square_feet, :property_id)
     end
 end

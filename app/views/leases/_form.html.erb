@@ -20,8 +20,21 @@
     <%= f.date_select :end_date %>
   </div>
   <div class="field">
-    <%= f.label :rent %><br>
+    <%= f.label :rent %> (enter whole numbers)<br>
     <%= f.number_field :rent %>
+  </div>
+  <div class="field">
+    <%= f.label :unit %><br>
+    <%= f.collection_select :unit_id, Unit.all.collect, :id, :full_title, :prompt => "Select a Unit" %>
+  </div>
+  <div class="field">
+    <%= f.label :renters %><br>
+    <% User.all.each do |u| %>
+      <div>
+        <%= check_box_tag "lease[renter_ids][]", u.id, @lease.renters.include?(u) %>
+        <%= u.username %>
+      </div>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

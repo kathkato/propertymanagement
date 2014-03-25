@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 	belongs_to :lease, :foreign_key => 'lease_id'
 	has_many :submittedreports, :class_name => 'RepairRequest'
 	has_many :approvedreports, :class_name => 'RepairRequest'
+	has_many :payments
 
 	has_and_belongs_to_many :roles
 

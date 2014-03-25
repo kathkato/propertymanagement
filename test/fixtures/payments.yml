@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  ip_address: MyString
+  first_name: MyString
+  last_name: MyString
+  expires_on: 2014-03-18
+
+two:
+  amount: 1
+  ip_address: MyString
+  first_name: MyString
+  last_name: MyString
+  expires_on: 2014-03-18

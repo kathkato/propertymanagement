@@ -77,4 +77,11 @@ Propertymanagement::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Tell ActiveMerchant to tell our Gateway to use the test server
+  ActiveMerchant::Billing::Base.mode = :test
+
+  # Construct a Gateway object (ActiveMerchant provides the superclass)
+  ::GATEWAY = ActiveMerchant::Billing::FakeGateway.new
+
 end

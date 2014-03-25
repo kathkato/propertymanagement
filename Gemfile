@@ -1,7 +1,12 @@
 source 'https://rubygems.org'
 
+# Add activemerchant
+gem 'activemerchant'
+
+# Add cancan
 gem 'cancan'
 
+# Add authlogic
 gem 'authlogic'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

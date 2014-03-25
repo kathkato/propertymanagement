@@ -1,15 +1,22 @@
 class LeasesController < ApplicationController
   before_action :set_lease, only: [:show, :edit, :update, :destroy]
 
+  load_and_authorize_resource
+
   # GET /leases
   # GET /leases.json
   def index
-    @leases = Lease.all
+    if current_user.has_role? :manager
+      @leases = Lease.all
+    else
+      @leases = [current_user.lease]
+    end
   end
 
   # GET /leases/1
   # GET /leases/1.json
   def show
+    @lease = Lease.find(params[:id])
   end
 
   # GET /leases/new
@@ -19,6 +26,7 @@ class LeasesController < ApplicationController
 
   # GET /leases/1/edit
   def edit
+    @lease = Lease.find(params[:id])
   end
 
   # POST /leases
@@ -69,6 +77,6 @@ class LeasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lease_params
-      params.require(:lease).permit(:start_date, :end_date, :rent)
+      params.require(:lease).permit(:start_date, :end_date, :rent, :unit_id, {:renter_ids => []})
     end
 end

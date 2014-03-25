@@ -43,7 +43,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    params[:user][:role_ids] ||= []
+      if @user.has_role? :manager
+        params[:user][:role_ids] ||= []
+      end
 
     respond_to do |format|
       if @user.update(user_params)

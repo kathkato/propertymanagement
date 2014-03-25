@@ -8,6 +8,8 @@ All Leases
       <th>Start date</th>
       <th>End date</th>
       <th>Rent</th>
+      <th>Renters</th>
+      <th>Unit</th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,9 +22,15 @@ All Leases
         <td><%= lease.start_date %></td>
         <td><%= lease.end_date %></td>
         <td><%= lease.rent %></td>
+        <td><% for user in lease.renters %>
+          <%= user.username %><br>
+        <% end %></td>
+        <td><%= lease.unit.full_title %></td>
         <td><%= link_to 'Show', lease %></td>
-        <td><%= link_to 'Edit', edit_lease_path(lease) %></td>
-        <td><%= link_to 'Destroy', lease, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can? :manage, lease %>
+          <td><%= link_to 'Edit', edit_lease_path(lease) %></td>
+          <td><%= link_to 'Destroy', lease, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +38,8 @@ All Leases
 
 <br>
 
-<%= link_to 'New Lease', new_lease_path %>
+<% if current_user %>
+  <% if current_user.has_role? :manager %>
+  <%= link_to 'New Lease', new_lease_path %>
+  <% end %>
+<% end %>

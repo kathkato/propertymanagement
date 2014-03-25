@@ -3,4 +3,8 @@ class Unit < ActiveRecord::Base
 	has_many :leases
 
 	validates :name, presence: true
+
+	def full_title
+		"#{name}: #{property.name}"
+	end
 end

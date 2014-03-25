@@ -33,4 +33,11 @@ Propertymanagement::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # Tell ActiveMerchant to tell our Gateway to use the test server
+  ActiveMerchant::Billing::Base.mode = :test
+
+  # Construct a Gateway object (ActiveMerchant provides the superclass)
+  ::GATEWAY = ActiveMerchant::Billing::FakeGateway.new
+
 end

@@ -26,4 +26,14 @@ Propertymanagement::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # Tell ActiveMerchant to tell our Gateway to use the test server
+  ActiveMerchant::Billing::Base.mode = :test
+
+  # Construct a Gateway object (ActiveMerchant provides the superclass)
+  ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new({
+    :login => '5f8Ygta6D4UP',
+    :password => '53BA5868As3HHub6'
+  })
+
 end

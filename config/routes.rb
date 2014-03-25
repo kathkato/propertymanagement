@@ -1,4 +1,6 @@
 Propertymanagement::Application.routes.draw do
+  resources :payments
+
   resources :properties
 
   resources :repair_requests
