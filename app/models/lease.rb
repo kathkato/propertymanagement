@@ -4,6 +4,7 @@ class Lease < ActiveRecord::Base
 	has_many :payments
 
 	validates :start_date, :end_date, presence: true
+	validates :unit, presence: true
 
 	validate :validate_start_end_date
 
